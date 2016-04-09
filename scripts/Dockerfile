@@ -8,7 +8,7 @@ RUN yum install -y \
 RUN wget http://people.centos.org/tru/devtools-2/devtools-2.repo -O /etc/yum.repos.d/devtools-2.repo && \
     wget --no-check-certificate https://copr.fedoraproject.org/coprs/praiskup/autotools/repo/epel-5/praiskup-autotools-epel-5.repo -O /etc/yum.repos.d/autotools.repo
 RUN yum install -y \
-    devtoolset-2-binutils devtoolset-2-gcc-gfortran autotools-latest pkgconfig which file gpg \
+    devtoolset-2-binutils autotools-latest pkgconfig which file gpg \
     # Needed for perl-db-file
     db4-devel \
     # install X11 dependencies and openGL/mesa
