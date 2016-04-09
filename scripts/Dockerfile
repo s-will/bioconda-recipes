@@ -35,6 +35,7 @@ RUN conda config --add channels r
 RUN conda config --add channels file://anaconda/conda-bld
 RUN conda install -y toposort
 
+RUN mv /usr/bin/gcc /opt/gcc
 # setup entrypoint (assuming that repo is mounted under /bioconda-recipes)
 ENTRYPOINT ["/bioconda-recipes/scripts/build-packages.py"]
 CMD []
