@@ -26,7 +26,9 @@ RUN mkdir -p /anaconda/conda-bld/linux-64 /anaconda/conda-bld/osx-64 # workaroun
 
 # setup conda
 COPY requirements.txt /tmp/requirements.txt
+RUN conda update conda
 RUN conda install -y --file /tmp/requirements.txt
+RUN conda update conda-build
 RUN conda index /anaconda/conda-bld/linux-64 /anaconda/conda-bld/osx-64
 RUN conda config --add channels bioconda
 RUN conda config --add channels r
