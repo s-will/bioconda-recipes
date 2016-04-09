@@ -172,7 +172,7 @@ if __name__ == "__main__":
     global args
     args = p.parse_args()
 
-    sp.run(["gcc", "--version"], check=True)
+    #sp.run(["gcc", "--version"], check=True)
     try:
         sp.run(["ldd", "--version"], check=True)
     except:
