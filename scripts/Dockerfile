@@ -2,20 +2,30 @@ FROM centos:centos5
 
 # add tools useful for compilation
 RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm
-RUN yum install -y \
-    wget bzip2 bzip2-devel git patch make cmake unzip byacc && \
-    yum clean all
+
+# Install wget first so we can download devtools-2 and autotools repos
+RUN yum install -y wget
 RUN wget http://people.centos.org/tru/devtools-2/devtools-2.repo -O /etc/yum.repos.d/devtools-2.repo && \
     wget --no-check-certificate https://copr.fedoraproject.org/coprs/praiskup/autotools/repo/epel-5/praiskup-autotools-epel-5.repo -O /etc/yum.repos.d/autotools.repo
+
 RUN yum install -y \
-    devtoolset-2-binutils autotools-latest pkgconfig which file gpg \
-    # Needed for perl-db-file
-    db4-devel \
-    # install X11 dependencies and openGL/mesa
-    xorg-x11-apps mesa-libGLU-devel \
+    autotools-latest \
+    byacc \
+    bzip2 \
+    bzip2-devel \
+    cmake \
+    devtoolset-2-binutils \
+    file \
+    git \
+    gpg \
+    make \
+    mesa-libGLU-devel \
+    patch \
+    pkgconfig \
+    unzip \
+    which \
+    xorg-x11-apps \
     && yum clean all
-
-
 
 # install conda
 RUN mkdir -p /tmp/conda-build && wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash Miniconda3-latest-Linux-x86_64.sh -b -p /anaconda
@@ -36,6 +46,7 @@ RUN conda config --add channels file://anaconda/conda-bld
 RUN conda install -y toposort
 
 RUN mv /usr/bin/gcc /opt/gcc
+
 # setup entrypoint (assuming that repo is mounted under /bioconda-recipes)
 ENTRYPOINT ["/bioconda-recipes/scripts/build-packages.py"]
 CMD []
