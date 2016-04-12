@@ -14,7 +14,9 @@ requirements:
   build:
     - gcc   # [linux]
     - llvm  # [osx]
+    - perl-threaded
   run:
+    - perl-threaded
 
 about:
   home: http://www.tbi.univie.ac.at/RNA/
